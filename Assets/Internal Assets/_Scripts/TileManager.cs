@@ -4,45 +4,82 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    private float length, startposX, startposY;
+    private float length, startPosX, startPosZ;
     public GameObject cam;
     public float parallexEffect;
     public int rows = 7;
     public int jumpRow = 4;
 
+    [Header("")]
+    public GameObject[] contentPrefs;
+
     void Start()
     {
-        cam = Camera.main.gameObject;
-        startposX = transform.position.x;
-        startposY = transform.position.z;
 
+        GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], transform);
+
+        tmpContent.transform.Rotate(Vector3.up,  Random.Range(0f, 360f));
+
+
+        cam = Camera.main.gameObject;
+        startPosX = transform.position.x;
+        startPosZ = transform.position.z;
         length = 20f;
+
+        UpdateTilePosition(cam.transform.position.x,0);
+        UpdateTilePosition(cam.transform.position.z,1);
     }
+
+
     void Update()
     {
-       if(Input.GetAxis("Horizontal")!= 0)
+        if (Input.GetAxis("Horizontal") != 0)
         {
-            float temp = (cam.transform.position.x * (1 - parallexEffect));
-            float dist = (cam.transform.position.x * parallexEffect);
-            transform.position = new Vector3(startposX + dist, transform.position.y, transform.position.z);
-
-            if (temp > startposX + length * (jumpRow))
-                startposX += length * rows;
-            else if (temp < startposX - length * (jumpRow))
-                startposX -= length * rows;
+            UpdateTilePosition(cam.transform.position.x,0);
         }
-
         if (Input.GetAxis("Vertical") != 0)
         {
-            float temp = (cam.transform.position.z * (1 - parallexEffect));
-            float dist = (cam.transform.position.z * parallexEffect);
+            UpdateTilePosition(cam.transform.position.z,1);
+        }
 
-            transform.position = new Vector3(transform.position.x,transform.position.y, startposY + dist);
-
-            if (temp > startposY + length * (jumpRow))
-                startposY += length * rows;
-            else if (temp < startposY - length * (jumpRow))
-                startposY -= length * rows;
+        if(Input.GetAxis("Mouse ScrollWheel")!= 0)
+        {
+            UpdateTilePosition(cam.transform.position.x, 0);
+            UpdateTilePosition(cam.transform.position.z, 1);
         }
     }
+
+    //Update tiles depending on what axis is needed (0 - x, 1 - z)
+    private void UpdateTilePosition(float camProjectionCoord, int axis)
+    {
+        //Pick a start position projection coordinate
+        float calculatedStartPos = (axis == 0? startPosX:startPosZ);
+        float camPos = camProjectionCoord;
+       
+
+        //Move depending on axis
+        if(axis == 0)
+            transform.position = new Vector3(calculatedStartPos, transform.position.y, transform.position.z);
+        else if (axis == 1)
+            transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos);
+
+        //Check if needed to jump
+        if (camPos > calculatedStartPos + length * (jumpRow))
+        {
+            //Debug.Log(transform.name + " = " + camPos + " : " + (calculatedStartPos + length * (jumpRow)));
+            calculatedStartPos += length * rows;
+        }
+        else if (camPos < calculatedStartPos - length * (jumpRow))
+        {
+            //Debug.Log(transform.name + " = " + "-- " + camPos + " : " + (calculatedStartPos + length * (jumpRow)));
+            calculatedStartPos -= length * rows;       
+        }
+
+        //Update position projection coordinate depending on axis
+        if (axis == 0)
+            startPosX = calculatedStartPos;
+        else if (axis == 1)
+            startPosZ = calculatedStartPos;
+    }
+
 }
