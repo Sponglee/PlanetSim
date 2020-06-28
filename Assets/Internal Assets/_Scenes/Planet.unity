@@ -6020,6 +6020,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   scrollSpeed: 25
+  skyboxes:
+  - {fileID: 2100000, guid: f4e5443063dd388498dc67fc2f1c50bf, type: 2}
+  - {fileID: 2100000, guid: 2c308a3b06c530748acc49e5e317ee58, type: 2}
   vcam: {fileID: 1690391042}
 --- !u!1 &653260035
 GameObject:
@@ -14592,7 +14595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enablePlanet: 1
-  bendingAmount: 0.016
+  enableBending: 0
+  bendingAmount: 0.015
 --- !u!1001 &1384732285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18833,7 +18837,7 @@ Camera:
   m_GameObject: {fileID: 1687258581}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -18875,7 +18879,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -44.1, y: 90.000015, z: -17.399992}
+  m_LocalPosition: {x: -50, y: 90.000015, z: -17.399992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 483863571}
@@ -19052,7 +19056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690391041}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -44.1, y: 90.000015, z: -17.399992}
+  m_LocalPosition: {x: -50, y: 90.000015, z: -17.399992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 668892186}
@@ -24213,7 +24217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667463582888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.1, y: 0, z: -17.4}
+  m_LocalPosition: {x: -50, y: 0, z: -17.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 483863571}

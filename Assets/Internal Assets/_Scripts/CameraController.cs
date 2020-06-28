@@ -6,6 +6,9 @@ public class CameraController : MonoBehaviour
     public float speed = 1f;
     public float scrollSpeed = 1f;
 
+    public Material[] skyboxes;
+
+
     public CinemachineVirtualCamera vcam;
     CinemachineFramingTransposer transposer;
 
@@ -31,6 +34,16 @@ public class CameraController : MonoBehaviour
 
             vcam.transform.rotation = Quaternion.Euler(Mathf.Clamp(vcam.transform.eulerAngles.x -+ Input.GetAxis("Mouse ScrollWheel")*(Mathf.Exp(0.05f*(90f - transposer.m_CameraDistance))),60f,90f), vcam.transform.eulerAngles.y, vcam.transform.eulerAngles.z);
             Debug.Log(Mathf.Exp(0.05f * (90f - transposer.m_CameraDistance)));
+
+
+            if(transposer.m_CameraDistance >= 15f)
+            {
+                RenderSettings.skybox = skyboxes[1];
+            }
+            else
+            {
+                RenderSettings.skybox = skyboxes[0];
+            }
         }
 
     }

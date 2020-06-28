@@ -19,10 +19,12 @@ public class BendingManager : MonoBehaviour
 
   #region Inspector
 
-  [SerializeField]
-  private bool enablePlanet = default;
+    [SerializeField]
+    private bool enablePlanet = default;
+    [SerializeField]
+    private bool enableBending = default;
 
-  [SerializeField]
+    [SerializeField]
   [Range(0f, 0.1f)]
   private float bendingAmount = 0.015f;
 
@@ -33,22 +35,22 @@ public class BendingManager : MonoBehaviour
 
   private float _prevAmount;
 
-  #endregion
+    #endregion
 
 
-  #region MonoBehaviour
+    #region MonoBehaviour
 
-  private void Awake ()
-  {
-    if ( Application.isPlaying )
-      Shader.EnableKeyword(BENDING_FEATURE);
-    else
-      Shader.DisableKeyword(BENDING_FEATURE);
+    private void Awake()
+    {
+        if (Application.isPlaying && enableBending)
+            Shader.EnableKeyword(BENDING_FEATURE);
+        else
+            Shader.DisableKeyword(BENDING_FEATURE);
 
-    if ( enablePlanet )
-      Shader.EnableKeyword(PLANET_FEATURE);
-    else
-      Shader.DisableKeyword(PLANET_FEATURE);
+        if ( enablePlanet )
+          Shader.EnableKeyword(PLANET_FEATURE);
+        else
+          Shader.DisableKeyword(PLANET_FEATURE);
 
     UpdateBendingAmount();
   }
