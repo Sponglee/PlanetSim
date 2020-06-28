@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     {
         if(Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
         {
-            transform.Translate(Input.GetAxis("Horizontal") * speed, 0f, Input.GetAxis("Vertical") * speed);
+            transform.Translate(Input.GetAxis("Horizontal") * speed, 0f, Input.GetAxis("Vertical") * speed  );
         }
     }
 }
