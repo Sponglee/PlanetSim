@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
+        RTS_Camera.OnCameraMoved.AddListener(UpdateTile);
 
         GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], transform);
 
@@ -31,22 +33,10 @@ public class TileManager : MonoBehaviour
     }
 
 
-    void Update()
+    private void UpdateTile()
     {
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            UpdateTilePosition(cam.transform.position.x,0);
-        }
-        if (Input.GetAxis("Vertical") != 0)
-        {
-            UpdateTilePosition(cam.transform.position.z,1);
-        }
-
-        if(Input.GetAxis("Mouse ScrollWheel")!= 0)
-        {
-            UpdateTilePosition(cam.transform.position.x, 0);
-            UpdateTilePosition(cam.transform.position.z, 1);
-        }
+        UpdateTilePosition(cam.transform.position.x, 0);
+        UpdateTilePosition(cam.transform.position.z, 1);
     }
 
     //Update tiles depending on what axis is needed (0 - x, 1 - z)
