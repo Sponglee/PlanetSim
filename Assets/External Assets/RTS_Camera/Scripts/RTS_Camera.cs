@@ -46,6 +46,7 @@ public class RTS_Camera : MonoBehaviour
     public float panningSpeed = 10f;
     public float mouseRotationSpeed = 10f;
 
+    public bool IsMoving = false;
 
     #endregion
 
@@ -231,6 +232,7 @@ public class RTS_Camera : MonoBehaviour
             desiredMove = Quaternion.Euler(new Vector3(0f, transform.eulerAngles.y, 0f)) * desiredMove;
             desiredMove = m_Transform.InverseTransformDirection(desiredMove);
 
+           
             //lastInput = desiredMove;
             m_Transform.Translate(desiredMove, Space.Self);
         }
@@ -265,6 +267,15 @@ public class RTS_Camera : MonoBehaviour
             desiredMove *= Time.deltaTime;
             desiredMove = Quaternion.Euler(new Vector3(0f, transform.eulerAngles.y, 0f)) * desiredMove;
             desiredMove = m_Transform.InverseTransformDirection(desiredMove);
+
+            if (desiredMove != Vector3.zero)
+            {
+                IsMoving = true;
+            }
+            else
+            {
+                IsMoving = false;
+            }
 
 
             lastInput = desiredMove;
