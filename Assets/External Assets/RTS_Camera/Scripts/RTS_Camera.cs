@@ -37,15 +37,25 @@ public class RTS_Camera : MonoBehaviour
     public float keyboardMovementSpeed = 5f; //speed with keyboard movement
     public float screenEdgeMovementSpeed = 3f; //spee with screen edge movement
     public float followingSpeed = 5f; //speed when following a target
+
+    public float moveDampening = 0f;
+    public Vector3 lastInput;
+
+
     public float rotationSped = 3f;
     public float panningSpeed = 10f;
     public float mouseRotationSpeed = 10f;
+
 
     #endregion
 
     #region Height
 
+   
     public bool autoHeight = true;
+
+  
+
     public LayerMask groundMask = -1; //layermask of ground or other objects that affect height
 
     public float maxHeight = 10f; //maximal height
@@ -71,6 +81,7 @@ public class RTS_Camera : MonoBehaviour
     public Transform targetFollow; //target to follow
     public Vector3 targetOffset;
 
+   
     /// <summary>
     /// are we following target
     /// </summary>
@@ -202,6 +213,7 @@ public class RTS_Camera : MonoBehaviour
         HeightCalculation();
         Rotation();
         LimitPosition();
+        MoveDampening();
         OnCameraMoved.Invoke();
     }
 
@@ -213,12 +225,13 @@ public class RTS_Camera : MonoBehaviour
         if (useKeyboardInput)
         {
             Vector3 desiredMove = new Vector3(KeyboardInput.x, 0, KeyboardInput.y);
-
+          
             desiredMove *= keyboardMovementSpeed;
             desiredMove *= Time.deltaTime;
             desiredMove = Quaternion.Euler(new Vector3(0f, transform.eulerAngles.y, 0f)) * desiredMove;
             desiredMove = m_Transform.InverseTransformDirection(desiredMove);
 
+            //lastInput = desiredMove;
             m_Transform.Translate(desiredMove, Space.Self);
         }
 
@@ -239,7 +252,9 @@ public class RTS_Camera : MonoBehaviour
             desiredMove = Quaternion.Euler(new Vector3(0f, transform.eulerAngles.y, 0f)) * desiredMove;
             desiredMove = m_Transform.InverseTransformDirection(desiredMove);
 
+          
             m_Transform.Translate(desiredMove, Space.Self);
+         
         }
 
         if (usePanning && Input.GetKey(panningKey) && MouseAxis != Vector2.zero)
@@ -251,7 +266,46 @@ public class RTS_Camera : MonoBehaviour
             desiredMove = Quaternion.Euler(new Vector3(0f, transform.eulerAngles.y, 0f)) * desiredMove;
             desiredMove = m_Transform.InverseTransformDirection(desiredMove);
 
+
+            lastInput = desiredMove;
+            Debug.Log(lastInput);
+
             m_Transform.Translate(desiredMove, Space.Self);
+          
+        }
+
+       
+    }
+
+    private void MoveDampening()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log(lastInput);
+            StartCoroutine(StartDampening());
+            
+        }
+        else if(Input.GetMouseButtonDown(0) || Input.GetAxis("Horizontal")!= 0 || Input.GetAxis("Vertical") != 0)
+        {
+            StopAllCoroutines();
+        }
+    }
+
+    private IEnumerator StartDampening()
+    {
+        float elapsed = 0;
+        float duration = moveDampening;
+
+        Vector3 lastInputTemp = new Vector3(Mathf.Clamp(lastInput.x,-1f,1f), Mathf.Clamp(lastInput.y, -1f, 1f), Mathf.Clamp(lastInput.z, -1f, 1f));
+
+        //Vector3 startPos = new Vector3(m_Transform.position.x, 0, m_Transform.position.z);
+        //Vector3 endPos = new Vector3(m_Transform.position.x + lastInput.x, 0, m_Transform.position.z + lastInput.z);
+
+        while(elapsed<duration)
+        {
+            m_Transform.Translate(Vector3.Lerp(lastInputTemp, Vector3.zero, elapsed/duration));
+            elapsed += Time.deltaTime;
+            yield return null;
         }
     }
 

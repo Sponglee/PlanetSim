@@ -18946,8 +18946,10 @@ MonoBehaviour:
   keyboardMovementSpeed: 100
   screenEdgeMovementSpeed: 100
   followingSpeed: 5
+  moveDampening: 0.4
+  lastInput: {x: 0.113212004, y: 0.05660601, z: -0.000000007450581}
   rotationSped: 200
-  panningSpeed: 490
+  panningSpeed: 200
   mouseRotationSpeed: 200
   autoHeight: 1
   groundMask:
@@ -18963,7 +18965,7 @@ MonoBehaviour:
   limitY: 50
   targetFollow: {fileID: 0}
   targetOffset: {x: 0, y: 0, z: 0}
-  useScreenEdgeInput: 1
+  useScreenEdgeInput: 0
   screenEdgeBorder: 25
   useKeyboardInput: 1
   horizontalAxis: Horizontal
@@ -24555,6 +24557,8 @@ MonoBehaviour:
   keyboardMovementSpeed: 5
   screenEdgeMovementSpeed: 3
   followingSpeed: 5
+  moveDampening: 0
+  lastInput: {x: 0, y: 0, z: 0}
   rotationSped: 3
   panningSpeed: 10
   mouseRotationSpeed: 10

@@ -84,6 +84,9 @@ namespace RTS_Cam
             camera.targetFollow = EditorGUILayout.ObjectField("Target to follow: ", camera.targetFollow, typeof(Transform)) as Transform;
             camera.targetOffset = EditorGUILayout.Vector3Field("Target offset: ", camera.targetOffset);
             camera.followingSpeed = EditorGUILayout.FloatField("Following speed: ", camera.followingSpeed);
+
+            GUILayout.Label("Movement Dampening", EditorStyles.boldLabel);
+            camera.moveDampening = EditorGUILayout.FloatField("Move dampening: ", camera.moveDampening);
         }
 
         private void RotationTab()
