@@ -24,9 +24,13 @@ public class BendingManager : MonoBehaviour
     [SerializeField]
     private bool enableBending = default;
 
+    [SerializeField] 
+    [Range(0,500)]
+    private static int frustumSize = 300;
+
     [SerializeField]
-  [Range(0f, 0.1f)]
-  private float bendingAmount = 0.015f;
+    [Range(0f, 0.1f)]
+    private float bendingAmount = 0.015f;
 
   #endregion
 
@@ -90,7 +94,7 @@ public class BendingManager : MonoBehaviour
   private static void OnBeginCameraRendering (ScriptableRenderContext ctx,
                                               Camera cam)
   {
-    cam.cullingMatrix = Matrix4x4.Ortho(-99, 99, -99, 99, 0.001f, 99) *
+    cam.cullingMatrix = Matrix4x4.Ortho(-frustumSize, frustumSize, -frustumSize, frustumSize, 0.001f, frustumSize) *
                         cam.worldToCameraMatrix;
   }
 

@@ -40,7 +40,7 @@ public class RTS_Camera : MonoBehaviour
 
     public float moveDampening = 0f;
     public Vector3 lastInput;
-
+    
 
     public float rotationSped = 3f;
     public float panningSpeed = 10f;
@@ -282,7 +282,7 @@ public class RTS_Camera : MonoBehaviour
             Debug.Log(lastInput);
 
             m_Transform.Translate(desiredMove, Space.Self);
-          
+            
         }
 
        
@@ -318,6 +318,7 @@ public class RTS_Camera : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        lastInput = Vector3.zero;
     }
 
     /// <summary>
