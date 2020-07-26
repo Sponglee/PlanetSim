@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TriangleNet.Geometry;
 using TriangleNet.Meshing;
 using TriangleNet.Topology;
@@ -17,6 +16,8 @@ public enum ColorSetting
 [RequireComponent(typeof(MeshRenderer),typeof(MeshFilter),typeof(MeshCollider))]
 public class Test : MonoBehaviour
 {
+
+
     public float radius = 1;
     public Vector2 regionSize = Vector2.one;
     public float displayRadius = 1;
@@ -69,7 +70,7 @@ public class Test : MonoBehaviour
     public ColorSetting colorSetting;
     public Gradient heightGradient;
 
-
+    
     private Polygon polygon;
     private TriangleNet.Mesh mesh;
     private UnityEngine.Mesh terrainMesh;
@@ -77,6 +78,14 @@ public class Test : MonoBehaviour
     private float minNoiseHeight;
     private float maxNoiseHeight;
 
+    void Update()
+    {
+         if(Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("INITIATE");
+            Initiate();
+        }
+    }
 
     public void Initiate()
     {
@@ -97,6 +106,7 @@ public class Test : MonoBehaviour
         mesh = polygon.Triangulate() as TriangleNet.Mesh;
 
         points  = PoissonDiscSampling.GeneratePoints(radius,regionSize,rejectionSamples);
+        Debug.Log(points.Count);
         ShapeTerrain();
         GenerateMesh();
     }
@@ -147,8 +157,8 @@ public class Test : MonoBehaviour
          List<Vector3> normals = new List<Vector3>();
          List<Vector2> uvs = new List<Vector2>();
          List<int> triangles = new List<int>();
+        List<Color> colors = new List<Color>();
 
-        
          IEnumerator<Triangle> triangleEnum = mesh.Triangles.GetEnumerator();
 
         for (int i = 0; i < mesh.Triangles.Count; i++)
@@ -179,8 +189,31 @@ public class Test : MonoBehaviour
             {
                 normals.Add(normal);
                 uvs.Add(Vector3.zero);
+                colors.Add(EvaluateColor(currentTriangle));
             }
+
+           
+
+            
         }
+
+
+        terrainMesh  = new Mesh();
+
+        Vector3[] vertArray = vertices.ToArray();
+        Vector3[] normArray = normals.ToArray();
+        int[] triangleArray = triangles.ToArray();
+        Vector2[] uvArray = uvs.ToArray();
+        Color[] colorsArray = colors.ToArray();
+
+        terrainMesh.vertices = vertArray;
+        terrainMesh.triangles = triangleArray;
+        terrainMesh.uv = uvArray;
+        terrainMesh.normals = normArray;
+        terrainMesh.colors = colorsArray;
+        GetComponent<MeshFilter>().mesh = terrainMesh;
+
+     
     }
 
     private Color EvaluateColor(Triangle triangle)
