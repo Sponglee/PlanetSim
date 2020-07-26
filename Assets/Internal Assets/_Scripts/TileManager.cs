@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class TileManager : MonoBehaviour
 {
     private float length, startPosX, startPosZ;
     public GameObject cam;
     public float parallexEffect;
-    public int rows = 7;
-    public int jumpRow = 4;
+    public int rows = 50;
+    public int jumpRow = 30;
 
     [Header("")]
     public GameObject[] contentPrefs;
@@ -26,10 +27,10 @@ public class TileManager : MonoBehaviour
         cam = Camera.main.gameObject;
         startPosX = transform.position.x;
         startPosZ = transform.position.z;
-        length = 20f;
+        length = 30f;
 
-        UpdateTilePosition(cam.transform.position.x,0);
-        UpdateTilePosition(cam.transform.position.z,1);
+        UpdateTilePosition(cam.transform.position.x, 0);
+        UpdateTilePosition(cam.transform.position.z, 1);
     }
 
 
@@ -43,12 +44,12 @@ public class TileManager : MonoBehaviour
     private void UpdateTilePosition(float camProjectionCoord, int axis)
     {
         //Pick a start position projection coordinate
-        float calculatedStartPos = (axis == 0? startPosX:startPosZ);
+        float calculatedStartPos = (axis == 0 ? startPosX : startPosZ);
         float camPos = camProjectionCoord;
-       
+
 
         //Move depending on axis
-        if(axis == 0)
+        if (axis == 0)
             transform.position = new Vector3(calculatedStartPos, transform.position.y, transform.position.z);
         else if (axis == 1)
             transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos);
@@ -62,7 +63,7 @@ public class TileManager : MonoBehaviour
         else if (camPos < calculatedStartPos - length * (jumpRow))
         {
             //Debug.Log(transform.name + " = " + "-- " + camPos + " : " + (calculatedStartPos + length * (jumpRow)));
-            calculatedStartPos -= length * rows;       
+            calculatedStartPos -= length * rows;
         }
 
         //Update position projection coordinate depending on axis
