@@ -18,9 +18,9 @@ public class TileManager : MonoBehaviour
     {
         RTS_Camera.OnCameraMoved.AddListener(UpdateTile);
 
-        GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], transform);
+        // GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], transform);
 
-        tmpContent.transform.Rotate(Vector3.up,  Random.Range(0f, 360f));
+        // tmpContent.transform.Rotate(Vector3.up,  Random.Range(0f, 360f));
 
 
         cam = Camera.main.gameObject;

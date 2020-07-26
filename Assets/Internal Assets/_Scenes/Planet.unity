@@ -491,7 +491,6 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 1687258584}
-  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -22414,11 +22413,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile (28)
       objectReference: {fileID: 0}
-    - target: {fileID: 6090993688707816111, guid: 44e188c87d052ad42a3ed40053d3d5b1,
-        type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 1687258581}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44e188c87d052ad42a3ed40053d3d5b1, type: 3}
 --- !u!4 &1932734424 stripped
