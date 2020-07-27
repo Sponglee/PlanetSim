@@ -213,8 +213,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   parallexEffect: 0
-  rows: 50
-  jumpRow: 30
+  rows: 10
+  jumpRow: 7
+  length: 1.6
   contentPrefs:
   - {fileID: 9210988449010371646, guid: 5be2441d3d014d04fb42b850e64ce924, type: 3}
   - {fileID: 1960387928892644209, guid: 27a8c92528eb1e647ae3ce1e7ce79547, type: 3}
