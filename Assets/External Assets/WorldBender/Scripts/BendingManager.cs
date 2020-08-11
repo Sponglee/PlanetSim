@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 [ExecuteAlways]
-public class BendingManager : MonoBehaviour
+public class BendingManager : Singleton<BendingManager>
 {
     #region Constants
 
@@ -31,6 +31,7 @@ public class BendingManager : MonoBehaviour
     [SerializeField]
     [Range(0f, 0.1f)]
     private float bendingAmount = 0.015f;
+    public float BendingAmount { get => bendingAmount; set => bendingAmount = value; }
 
     #endregion
 
@@ -38,6 +39,7 @@ public class BendingManager : MonoBehaviour
     #region Fields
 
     private float _prevAmount;
+
 
     #endregion
 

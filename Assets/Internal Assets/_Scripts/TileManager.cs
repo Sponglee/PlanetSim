@@ -10,22 +10,26 @@ public class TileManager : MonoBehaviour
     public GameObject cam;
     public float parallexEffect;
     public int rows = 50;
-    public int jumpRow = 30;
+    public float jumpRow = 20f;
     public float length = 1.6f;
+
+    public Vector3 difference;
 
     [Header("")]
     public GameObject[] contentPrefs;
 
     private bool isVisible = true;
 
+    public Transform contentHolder;
+
     public bool IsVisible
     {
         get => isVisible;
         set
         {
-            if (value != isVisible)
+            if (value == false)
             {
-                UpdateTile();
+                // UpdateTile();
             }
             isVisible = value;
         }
@@ -37,10 +41,17 @@ public class TileManager : MonoBehaviour
     {
         // RTS_Camera.OnCameraMoved.AddListener(UpdateTile);
 
-        // // GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], transform);
+        GameObject tmpContent = Instantiate(contentPrefs[Random.Range(0, contentPrefs.Length)], contentHolder);
 
-        // // tmpContent.transform.Rotate(Vector3.up,  Random.Range(0f, 360f));
+        tmpContent.transform.Rotate(Vector3.up, Random.Range(0f, 360f));
 
+
+        int seed = Random.Range(0, 100);
+
+        if (seed < 50)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
 
         cam = Camera.main.gameObject;
         startPosX = transform.position.x;
@@ -54,14 +65,25 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam.GetComponent<Camera>());
-        if (!IsVisible && GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
+        // Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam.GetComponent<Camera>());
+        // if (!IsVisible && GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
+        // {
+        //     IsVisible = true;
+        // }
+        // else if (IsVisible && !GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
+        // {
+        //     IsVisible = false;
+        // }
+
+        difference = (cam.transform.position - transform.position);
+
+        if (Mathf.Abs(difference.x) > 17f)
         {
-            IsVisible = true;
+            UpdateTilePosition(cam.transform.position.x, 0);
         }
-        else if (IsVisible && !GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
+        if (Mathf.Abs(difference.z) > 17f)
         {
-            IsVisible = false;
+            UpdateTilePosition(cam.transform.position.z, 1);
         }
 
     }
@@ -79,31 +101,21 @@ public class TileManager : MonoBehaviour
         float calculatedStartPos = (axis == 0 ? startPosX : startPosZ);
         float camPos = camProjectionCoord;
 
-        // Debug.Log(camPos + " : " + calculatedStartPos + length * (jumpRow));
-        //Move depending on axis
 
-        // if (axis == 0)
-        //     transform.position = new Vector3(calculatedStartPos, transform.position.y, transform.position.z);
-        // else if (axis == 1)
-        //     transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos);
-
-        //Check if needed to jump
-        if (Mathf.Abs(camPos) > Mathf.Abs(calculatedStartPos + length * (jumpRow)))
-        {
-            Debug.Log(transform.name + " = " + camPos + " : " + (calculatedStartPos + length * (jumpRow)));
-            calculatedStartPos += length * rows;
-        }
-        else if (Mathf.Abs(camPos) < Mathf.Abs(calculatedStartPos - length * (jumpRow)))
-        {
-            Debug.Log(transform.name + " = " + "-- " + camPos + " : " + (calculatedStartPos + length * (jumpRow)));
-            calculatedStartPos -= length * rows;
-        }
 
         //Update position projection coordinate depending on axis
         if (axis == 0)
+        {
+            calculatedStartPos += length * rows * Mathf.Sign(camProjectionCoord - transform.position.x);
             startPosX = calculatedStartPos;
+            transform.position = new Vector3(calculatedStartPos, transform.position.y, transform.position.z);
+        }
         else if (axis == 1)
+        {
+            calculatedStartPos += length * rows * Mathf.Sign(camProjectionCoord - transform.position.z);
             startPosZ = calculatedStartPos;
+            transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos);
+        }
     }
 
 }

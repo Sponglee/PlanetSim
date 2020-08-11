@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: Tile
   m_Shader: {fileID: -6465566751694194690, guid: 88521dfd28d0c42b5b63f0b0f0292ba2,
     type: 3}
   m_ShaderKeywords: 
@@ -38,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_FA8A7797:
-        m_Texture: {fileID: 2800000, guid: 099261bf10163427db34d9d5fd2befab, type: 3}
+        m_Texture: {fileID: 2800000, guid: dcf37e2071da441ebab3968c6068c7e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:

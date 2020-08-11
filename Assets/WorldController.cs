@@ -8,6 +8,8 @@ public class WorldController : MonoBehaviour
     public Vector2 worldSize;
     public Vector2 worldOffset;
 
+    public Transform tileHolder;
+    public Transform world;
 
 
     void Start()
@@ -26,7 +28,7 @@ public class WorldController : MonoBehaviour
                 if (y % 2 == 1)
                     xPos += worldOffset.y / 2f;
 
-                GameObject tmpTile = Instantiate(tilePref, transform);
+                GameObject tmpTile = Instantiate(tilePref, tileHolder);
                 tmpTile.transform.localPosition = new Vector3(xPos, 0, y * worldOffset.x);
             }
         }

@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BendingMaster
+  m_Name: TileBackground
   m_Shader: {fileID: -6465566751694194690, guid: 88521dfd28d0c42b5b63f0b0f0292ba2,
     type: 3}
   m_ShaderKeywords: 
@@ -38,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_FA8A7797:
-        m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: cf26ea1adb8712d459812f8f9e31d4fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -73,7 +73,7 @@ Material:
     - Boolean_35FE871A: 0
     - Vector1_5F23FE67: 0.015
     - Vector1_7F78A952: 0.02
-    - Vector1_CFC36DAD: 1
+    - Vector1_CFC36DAD: 0.00001
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1

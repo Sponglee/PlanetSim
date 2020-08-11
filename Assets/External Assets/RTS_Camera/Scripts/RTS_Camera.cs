@@ -335,6 +335,11 @@ public class RTS_Camera : MonoBehaviour
         zoomPos = Mathf.Clamp01(zoomPos);
 
         float targetHeight = Mathf.Lerp(minHeight, maxHeight, zoomPos);
+        //ZOOM BEHAVIOURS
+        transform.rotation = Quaternion.Euler(Mathf.Lerp(45f, 90f, zoomPos), transform.rotation.y, transform.rotation.z);
+        BendingManager.Instance.BendingAmount = Mathf.Lerp(0.015f, 0.07f, zoomPos);
+
+
         float difference = 0;
 
         if (distanceToGround != targetHeight)
