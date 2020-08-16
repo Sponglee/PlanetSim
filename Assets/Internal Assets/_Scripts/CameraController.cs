@@ -2,10 +2,13 @@
 using Cinemachine;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
     public Transform secondCam;
     public Material skyboxMat;
+    public Material atmoSkyboxMat;
+
+
     public RTS_Camera cameraRef;
     float curRot = 0;
 
@@ -15,7 +18,7 @@ public class CameraController : MonoBehaviour
         if (cameraRef.lastInput != Vector3.zero)
         {
 
-            secondCam.Rotate(new Vector3(cameraRef.lastInput.y, cameraRef.lastInput.y, 0));
+            // secondCam.Rotate(new Vector3(cameraRef.lastInput.y, cameraRef.lastInput.y, 0));
 
 
             //curRot += 0.1f * Time.deltaTime;

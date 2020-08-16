@@ -335,10 +335,28 @@ public class RTS_Camera : MonoBehaviour
         zoomPos = Mathf.Clamp01(zoomPos);
 
         float targetHeight = Mathf.Lerp(minHeight, maxHeight, zoomPos);
-        //ZOOM BEHAVIOURS
+
+        //ZOOM BEHAVIOURS===============================================================================================
         transform.rotation = Quaternion.Euler(Mathf.Lerp(45f, 90f, zoomPos), transform.rotation.y, transform.rotation.z);
         BendingManager.Instance.BendingAmount = Mathf.Lerp(0.015f, 0.07f, zoomPos);
 
+        RenderSettings.skybox.SetFloat("_Blend", zoomPos * 2f);
+        // DynamicGI.UpdateEnvironment();
+
+
+
+
+
+
+        // if (targetHeight >= (minHeight + 3))
+        // {
+        //     RenderSettings.skybox = CameraController.Instance.atmoSkyboxMat;
+        // }
+        // else
+        // {
+        //     RenderSettings.skybox = CameraController.Instance.skyboxMat;
+
+        // }
 
         float difference = 0;
 
