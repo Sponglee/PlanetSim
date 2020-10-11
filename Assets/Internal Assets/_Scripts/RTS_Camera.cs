@@ -189,6 +189,8 @@ public class RTS_Camera : MonoBehaviour
     {
         if (!useFixedUpdate)
             CameraUpdate();
+
+
     }
 
     private void FixedUpdate()

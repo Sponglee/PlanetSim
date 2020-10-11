@@ -22,8 +22,10 @@ public class TileScript : MonoBehaviour
         get { return new Vector2(transform.position.x, transform.position.y); }
     }
 
-    public int rows = 50;
-    public float jumpRow = 20f;
+    public Vector2 jumpSize;
+    private Vector2 jumpStep;
+
+
     public float length = 1.6f;
     [HideInInspector()] public Vector3 difference;
     [HideInInspector()] public GameObject cam;
@@ -60,6 +62,11 @@ public class TileScript : MonoBehaviour
 
     void Start()
     {
+        jumpSize = WorldController.Instance.worldSize;
+        jumpStep = jumpSize / 1.17647f;
+
+
+        Debug.Log(jumpStep);
         int seed = Random.Range(0, 100);
 
         if (seed < 50)
@@ -83,7 +90,7 @@ public class TileScript : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         // Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam.GetComponent<Camera>());
         // if (!IsVisible && GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
@@ -97,14 +104,21 @@ public class TileScript : MonoBehaviour
 
         difference = (cam.transform.position - transform.position);
 
-        if (Mathf.Abs(difference.x) > 17f)
+        if (Mathf.Abs(difference.x) > jumpStep.x)
         {
             UpdateTilePosition(cam.transform.position.x, 0);
         }
-        if (Mathf.Abs(difference.z) > 17f)
+        if (Mathf.Abs(difference.z) > jumpStep.y)
         {
             UpdateTilePosition(cam.transform.position.z, 1);
         }
+
+        // if (cam.transform.position.x > 1000f || cam.transform.position.z > 1000f)
+        // {
+        //     cam.transform.position = new Vector3(cam.transform.position.x % 1000f, cam.transform.position.y, cam.transform.position.z % 1000f);
+        //     UpdateTilePosition(cam.transform.position.x, 0);
+        //     UpdateTilePosition(cam.transform.position.z, 1);
+        // }
 
     }
 
@@ -126,15 +140,15 @@ public class TileScript : MonoBehaviour
         //Update position projection coordinate depending on axis
         if (axis == 0)
         {
-            calculatedStartPos += length * rows * Mathf.Sign(camProjectionCoord - transform.position.x);
+            calculatedStartPos += length * jumpSize.x * Mathf.Sign(camProjectionCoord - transform.position.x);
             startPosX = calculatedStartPos;
-            transform.position = new Vector3(calculatedStartPos, transform.position.y, transform.position.z);
+            transform.position = new Vector3(calculatedStartPos % 1000f, transform.position.y, transform.position.z);
         }
         else if (axis == 1)
         {
-            calculatedStartPos += length * rows * Mathf.Sign(camProjectionCoord - transform.position.z);
+            calculatedStartPos += length * jumpSize.y * Mathf.Sign(camProjectionCoord - transform.position.z);
             startPosZ = calculatedStartPos;
-            transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos);
+            transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos % 1000f);
         }
     }
 
