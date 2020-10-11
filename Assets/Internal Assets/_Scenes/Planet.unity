@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.08436287, g: 0.49669066, b: 0.6869077, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.46289152, b: 0.71484375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4665,6 +4665,7 @@ MonoBehaviour:
   secondCam: {fileID: 52285473}
   skyboxMat: {fileID: 2100000, guid: eea6dc32b86944868a305f6c94f8d7e4, type: 2}
   atmoSkyboxMat: {fileID: 2100000, guid: 2d056ac30ecc9e542b26e06133f23602, type: 2}
+  secondCamSpeed: 10
   cameraRef: {fileID: 1687258587}
 --- !u!1001 &499407305
 PrefabInstance:
@@ -19331,11 +19332,11 @@ MonoBehaviour:
   screenEdgeMovementSpeed: 100
   followingSpeed: 5
   moveDampening: 0.4
-  lastInput: {x: 0.113212004, y: 0.05660601, z: -0.000000007450581}
+  lastInput: {x: 0, y: 0, z: 0}
   rotationSped: 200
   panningSpeed: 200
   mouseRotationSpeed: 200
-  IsMoving: 0
+  IsMoving: 1
   autoHeight: 1
   groundMask:
     serializedVersion: 2

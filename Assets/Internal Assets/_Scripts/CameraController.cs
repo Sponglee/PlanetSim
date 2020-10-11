@@ -8,7 +8,7 @@ public class CameraController : Singleton<CameraController>
     public Material skyboxMat;
     public Material atmoSkyboxMat;
 
-
+    public float secondCamSpeed = 1f;
     public RTS_Camera cameraRef;
     float curRot = 0;
 
@@ -27,9 +27,9 @@ public class CameraController : Singleton<CameraController>
         }
         else
         {
-            secondCam.Rotate(new Vector3(Input.GetAxis("Vertical"), -1 * Input.GetAxis("Horizontal"), 0));
 
         }
+            secondCam.Rotate(new Vector3(Input.GetAxis("Vertical"), -1 * Input.GetAxis("Horizontal"), 0) * secondCamSpeed);
 
     }
 }
