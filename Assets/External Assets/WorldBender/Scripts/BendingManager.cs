@@ -29,7 +29,7 @@ public class BendingManager : Singleton<BendingManager>
     private static int frustumSize = 300;
 
     [SerializeField]
-    [Range(0f, 0.1f)]
+    [Range(0f, 1f)]
     private float bendingAmount = 0.015f;
     public float BendingAmount { get => bendingAmount; set => bendingAmount = value; }
 

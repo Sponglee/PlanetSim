@@ -1,8 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 //Struct for a grid representation (coordinates)
+[Serializable]
 public struct Point
 {
     public int X { get; set; }
@@ -26,8 +27,8 @@ public struct Point
     }
     //Add substract operator to Point
     public static Point operator -(Point x, Point y)
-        {
+    {
         return new Point(x.X - y.X, x.Y - y.Y);
-        }
+    }
 
 }

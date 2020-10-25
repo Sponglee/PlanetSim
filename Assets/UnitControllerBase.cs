@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +46,16 @@ public class UnitControllerBase : MonoBehaviour
     }
 
 
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.1f);
+        CurrentTilePos = new Point(0, 0);
+        GridPosition = new Point(0, 0);
+        destination = WorldController.Instance.tileHolder.GetChild(0).position;
+        this.MRePath = false;
+        RePath();
+    }
+
     public void RePath()
     {
 
@@ -66,7 +78,7 @@ public class UnitControllerBase : MonoBehaviour
 
 
         //Move 
-        //Move();
+        Move();
 
         //<---- wrong
 

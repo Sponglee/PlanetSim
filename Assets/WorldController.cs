@@ -80,42 +80,42 @@ public class WorldController : Singleton<WorldController>
 
 
 
-    public Stack<Node> GeneratePath(Point spawn)
-    {
-        if (AStar.Obstacles == null)
-            AStar.NewGoal = false;
+    // public Stack<Node> GeneratePath(Point spawn)
+    // {
+    //     if (AStar.Obstacles == null)
+    //         AStar.NewGoal = false;
 
-        path = AStar.GetPath(spawn, spawn);
+    //     path = AStar.GetPath(spawn, spawn);
 
 
-        if (AStar.NewGoal)
-        {
+    //     if (AStar.NewGoal)
+    //     {
 
-            //If path to redSpawn is unreachable turn on "NEW GoAL" mode to get to random obstacle
-            //closest F score 
-            if (AStar.Obstacles.Count != 0)
-            {
-                Node closestEnemy = AStar.Obstacles.OrderBy(n => n.F).First();
+    //         //If path to redSpawn is unreachable turn on "NEW GoAL" mode to get to random obstacle
+    //         //closest F score 
+    //         if (AStar.Obstacles.Count != 0)
+    //         {
+    //             Node closestEnemy = AStar.Obstacles.OrderBy(n => n.F).First();
 
-                Tmp = closestEnemy.GridPosition;
-            }
+    //             Tmp = closestEnemy.GridPosition;
+    //         }
 
-            //Check if 
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    Point neighbourPos = new Point(Tmp.X - x, Tmp.Y - y);
-                    // Inbounds checks "offgrid" cases and Walkables
-                    if (LevelManager.Instance.InBounds(neighbourPos) && neighbourPos != Tmp)
-                    {
-                        path = AStar.GetPath(spawn, Tmp);
-                        return path;
-                    }
-                }
-            }
+    //         //Check if 
+    //         for (int x = -1; x <= 1; x++)
+    //         {
+    //             for (int y = -1; y <= 1; y++)
+    //             {
+    //                 Point neighbourPos = new Point(Tmp.X - x, Tmp.Y - y);
+    //                 // Inbounds checks "offgrid" cases and Walkables
+    //                 if (LevelManager.Instance.InBounds(neighbourPos) && neighbourPos != Tmp)
+    //                 {
+    //                     path = AStar.GetPath(spawn, Tmp);
+    //                     return path;
+    //                 }
+    //             }
+    //         }
 
-        }
-        return path;
-    }
+    //     }
+    //     return path;
+    // }
 }

@@ -24,6 +24,8 @@ public class TileScript : MonoBehaviour
 
     public Vector2 jumpSize;
     private Vector2 jumpStep;
+    public Vector2 offset;
+
 
 
     public float length = 1.6f;
@@ -102,7 +104,7 @@ public class TileScript : MonoBehaviour
         //     IsVisible = false;
         // }
 
-        difference = (cam.transform.position - transform.position);
+        difference = (cam.transform.position - transform.position + new Vector3(offset.x, 0f, offset.y));
 
         if (Mathf.Abs(difference.x) > jumpStep.x)
         {
@@ -140,13 +142,13 @@ public class TileScript : MonoBehaviour
         //Update position projection coordinate depending on axis
         if (axis == 0)
         {
-            calculatedStartPos += length * jumpSize.x * Mathf.Sign(camProjectionCoord - transform.position.x);
+            calculatedStartPos += length * (jumpSize.x) * Mathf.Sign(camProjectionCoord - transform.position.x);
             startPosX = calculatedStartPos;
             transform.position = new Vector3(calculatedStartPos % 1000f, transform.position.y, transform.position.z);
         }
         else if (axis == 1)
         {
-            calculatedStartPos += length * jumpSize.y * Mathf.Sign(camProjectionCoord - transform.position.z);
+            calculatedStartPos += length * (jumpSize.y) * Mathf.Sign(camProjectionCoord - transform.position.z);
             startPosZ = calculatedStartPos;
             transform.position = new Vector3(transform.position.x, transform.position.y, calculatedStartPos % 1000f);
         }

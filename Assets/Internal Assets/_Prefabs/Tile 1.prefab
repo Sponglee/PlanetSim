@@ -91,10 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkAble: 0
-  Enemy: 0
+  Enemy: 1
   TileState: 0
-  rows: 20
-  jumpRow: 0
+  jumpSize: {x: 0, y: 0}
+  offset: {x: -8, y: 8}
   length: 1.6
   difference: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
