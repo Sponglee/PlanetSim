@@ -78,7 +78,8 @@ public class TileScript : MonoBehaviour
     public void SetUpTileType(TileType type)
     {
         GameObject tmpContent = Instantiate(type.tileVisualPrefab, contentHolder);
-        tmpContent.transform.Rotate(Vector3.up, Random.Range(0f, 360f));
+        if (tmpContent.transform.childCount > 1)
+            tmpContent.transform.GetChild(1).Rotate(Vector3.up, Random.Range(0f, 360f));
 
     }
 

@@ -79,8 +79,8 @@ MonoBehaviour:
   WalkAble: 1
   Enemy: 0
   TileState: 0
-  offset: {x: 1.7, y: 1.7}
-  length: 1.6
+  offset: {x: 0, y: 5}
+  length: 1.5
   difference: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
   contentHolder: {fileID: 3538081113136793870}
@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0000000089407
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
@@ -180,12 +180,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.0177816
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.0175174
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
