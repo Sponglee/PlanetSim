@@ -97,12 +97,15 @@ public class Pathfinding : Singleton<Pathfinding>
         {
             Gizmos.color = Color.green;
 
+            if (n.GridPosition == Vector2.zero)
+                Gizmos.color = Color.cyan;
+
             if (testPath != null)
                 if (testPath.Contains(n))
                 {
                     Gizmos.color = Color.black;
                 }
-            Gizmos.DrawCube(n.WorldPosition, Vector3.one * 1f);
+            Gizmos.DrawCube(n.WorldPosition + Vector3.up, Vector3.one * 1f);
         }
     }
 

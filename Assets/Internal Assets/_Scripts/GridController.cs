@@ -66,12 +66,21 @@ public class GridController : Singleton<GridController>
                 int checkX = (int)node.GridPosition.x + x;
                 int checkY = (int)node.GridPosition.y + y;
 
-                if (checkX >= 0 && checkX < worldSize.x && checkY >= 0 && checkY < worldSize.y)
-                {
-                    neighbours.Add(tiles[checkX, checkY]);
-                }
+                if (checkX < 0)
+                    checkX = (int)worldSize.x - 1;
+
+                if (checkY < 0)
+                    checkY = (int)worldSize.y - 1;
+
+                if (checkX >= (int)worldSize.x)
+                    checkX = 0;
+                if (checkY >= (int)worldSize.y)
+                    checkY = 0;
+
+                neighbours.Add(tiles[checkX, checkY]);
             }
         }
+
         return neighbours;
     }
 
