@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-public class TileScript : MonoBehaviour
+public partial class TileScript : MonoBehaviour
 {
-
     public enum TileStates
     {
         Free,
@@ -15,12 +14,8 @@ public class TileScript : MonoBehaviour
     public bool WalkAble = true;
     public bool Enemy = false;
 
-    public TileStates TileState = TileStates.Free;
-    // public Point GridPosition { get; private set; }
-    public Vector2 WorldPosition
-    {
-        get { return new Vector2(transform.position.x, transform.position.y); }
-    }
+
+
     public Vector2 offset;
 
     private Vector2 jumpSize;
@@ -47,6 +42,8 @@ public class TileScript : MonoBehaviour
         }
     }
 
+    public Node tileNode;
+
     private float startPosX, startPosZ;
     private bool isVisible = true;
 
@@ -60,10 +57,15 @@ public class TileScript : MonoBehaviour
     //     // WorldController.Instance.Tiles.Add(gridPos, this);
 
     // }
+    private void Awake()
+    {
+        tileNode = GetComponent<Node>();
+
+    }
 
     void Start()
     {
-        jumpSize = WorldController.Instance.worldSize;
+        jumpSize = GridController.Instance.worldSize;
         jumpStep = jumpSize / 1.17647f;
 
         cam = Camera.main.gameObject;

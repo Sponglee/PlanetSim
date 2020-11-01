@@ -294,7 +294,7 @@ public class RTS_Camera : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(lastInput);
+            // Debug.Log(lastInput);
             StartCoroutine(StartDampening());
 
         }

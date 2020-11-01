@@ -68,6 +68,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4610939017621706607, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4610939017621706607, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f101c7bbbaba2426eafbe5617e9a1d78,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -143,15 +153,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boat
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3506641638853944416, guid: f101c7bbbaba2426eafbe5617e9a1d78,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5133913965574556032, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133913965574556032, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7104584761487517566, guid: f101c7bbbaba2426eafbe5617e9a1d78,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104584761487517566, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104584761487517566, guid: f101c7bbbaba2426eafbe5617e9a1d78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f101c7bbbaba2426eafbe5617e9a1d78, type: 3}
@@ -252,6 +292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 98a299b6d781e4f198d9b511e4e50f95,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98a299b6d781e4f198d9b511e4e50f95, type: 3}
