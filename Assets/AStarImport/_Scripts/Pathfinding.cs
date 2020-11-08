@@ -50,7 +50,7 @@ public class Pathfinding : Singleton<Pathfinding>
             {
 
                 //Check for walkable here
-                if (closedSet.Contains(neighbour))
+                if (neighbour.TileState == TileScript.TileStates.Unwalkable || closedSet.Contains(neighbour))
                 {
                     continue;
                 }
@@ -108,7 +108,7 @@ public class Pathfinding : Singleton<Pathfinding>
                     Gizmos.color = Color.black;
                     // Gizmos.DrawIcon(n.GridPosition, n.name, true);
                 }
-            Gizmos.DrawCube(n.WorldPosition + Vector3.up, Vector3.one * 1f);
+            Gizmos.DrawCube(n.WorldPosition + Vector3.up * 2f, Vector3.one);
         }
     }
 

@@ -38,7 +38,7 @@ public class GridController : Singleton<GridController>
                 if (y % 2 == 1)
                     xPos += tileStep.y / 2f;
 
-                int tmpTileType = Random.Range(1, 1/*tileTypes.Length*/);
+                int tmpTileType = Random.Range(0, tileTypes.Length);
 
                 GameObject tmpTile = Instantiate(tilePref, tileHolder);
                 tmpTile.transform.localPosition = new Vector3(xPos, 0, y * tileStep.x);
