@@ -56,33 +56,65 @@ public class GridController : Singleton<GridController>
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
+        // Debug.Log("======");
 
-        for (int x = -1; x <= 1; x++)
+        if (node.GridPosition.y % 2 != 0)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int x = 0; x <= 1; x++)
             {
-                if (x == 0 && y == 0)
-                    continue;
-                int checkX = (int)node.GridPosition.x + x;
-                int checkY = (int)node.GridPosition.y + y;
-
-                if (checkX < 0)
-                    checkX = (int)worldSize.x - 1;
-
-                if (checkY < 0)
-                    checkY = (int)worldSize.y - 1;
-
-                if (checkX >= (int)worldSize.x)
-                    checkX = 0;
-                if (checkY >= (int)worldSize.y)
-                    checkY = 0;
-
-                neighbours.Add(tiles[checkX, checkY]);
+                for (int y = -1; y <= 1; y++)
+                {
+                    //Skip one we're standing on
+                    if (x == 0 && y == 0)
+                        continue;
+                    int checkX = (int)node.GridPosition.x + x;
+                    int checkY = (int)node.GridPosition.y + y;
+                    Vector2Int newCheck = CheckSign(checkX, checkY);
+                    neighbours.Add(tiles[newCheck.x, newCheck.y]);
+                }
             }
+            //Left tile
+            Vector2Int newLeftSideCheck = CheckSign((int)node.GridPosition.x - 1, (int)node.GridPosition.y);
+            neighbours.Add(tiles[newLeftSideCheck.x, newLeftSideCheck.y]);
         }
+        else
+        {
+            for (int x = -1; x < 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    //Skip one we're standing on
+                    if (x == 0 && y == 0)
+                        continue;
+                    int checkX = (int)node.GridPosition.x + x;
+                    int checkY = (int)node.GridPosition.y + y;
+                    Vector2Int newCheck = CheckSign(checkX, checkY);
+                    neighbours.Add(tiles[newCheck.x, newCheck.y]);
+                }
+            }
+            //Left tile
+            Vector2Int newLeftSideCheck = CheckSign((int)node.GridPosition.x + 1, (int)node.GridPosition.y);
+            neighbours.Add(tiles[newLeftSideCheck.x, newLeftSideCheck.y]);
+        }
+
 
         return neighbours;
     }
 
 
+    private Vector2Int CheckSign(int checkX, int checkY)
+    {
+        if (checkX < 0)
+            checkX = (int)worldSize.x - 1;
+
+        if (checkY < 0)
+            checkY = (int)worldSize.y - 1;
+
+        if (checkX >= (int)worldSize.x)
+            checkX = 0;
+        if (checkY >= (int)worldSize.y)
+            checkY = 0;
+
+        return new Vector2Int(checkX, checkY);
+    }
 }

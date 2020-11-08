@@ -16,7 +16,21 @@ public class Node : MonoBehaviour
 
 
     public TileStates TileState = TileStates.Free;
-    public Vector2 GridPosition { get; set; }
+
+    [SerializeField] private Vector2 gridPosition;
+    public Vector2 GridPosition
+    {
+        get
+        {
+            return gridPosition;
+        }
+        set
+        {
+            gridPosition = value;
+        }
+    }
+
+
     public Vector3 WorldPosition
     {
         get { return new Vector3(transform.position.x, transform.position.y, transform.position.z); }

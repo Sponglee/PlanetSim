@@ -48,7 +48,9 @@ public class Pathfinding : Singleton<Pathfinding>
 
             foreach (Node neighbour in grid.GetNeighbours(currentNode))
             {
-                if (neighbour.TileState != TileScript.TileStates.Free || closedSet.Contains(neighbour))
+
+                //Check for walkable here
+                if (closedSet.Contains(neighbour))
                 {
                     continue;
                 }
@@ -113,7 +115,6 @@ public class Pathfinding : Singleton<Pathfinding>
     //Get closest distance in 4 "mirrors" check which side is closer to move to
     int GetDistance(Node nodeA, Node nodeB)
     {
-
         int closestX = 99;
         int closestY = 99;
 
@@ -127,17 +128,8 @@ public class Pathfinding : Singleton<Pathfinding>
                     closestX = Mathf.Abs((int)nodeB.GridPosition.y + i * (int)grid.worldSize.y);
             }
         }
-
-
-
-
         int distX = Mathf.Abs((int)nodeA.GridPosition.x - (int)closestX);
         int distY = Mathf.Abs((int)nodeA.GridPosition.y - (int)closestY);
-
-
-
-
-
 
         if (distX > distY)
             return 14 * distY + 10 * (distX - distY);
