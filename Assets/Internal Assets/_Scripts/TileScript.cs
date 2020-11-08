@@ -73,8 +73,8 @@ public partial class TileScript : MonoBehaviour
         startPosZ = transform.position.z;
 
 
-        UpdateTilePosition(cam.transform.position.x, 0);
-        UpdateTilePosition(cam.transform.position.z, 1);
+        // UpdateTilePosition(cam.transform.position.x, 0);
+        // UpdateTilePosition(cam.transform.position.z, 1);
     }
 
     public void SetUpTileType(TileType type)
@@ -85,7 +85,7 @@ public partial class TileScript : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void LaFixedUpdate()
     {
         // Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam.GetComponent<Camera>());
         // if (!IsVisible && GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))

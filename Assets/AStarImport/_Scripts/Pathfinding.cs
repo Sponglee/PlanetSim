@@ -98,22 +98,46 @@ public class Pathfinding : Singleton<Pathfinding>
             Gizmos.color = Color.green;
 
             if (n.GridPosition == Vector2.zero)
-                Gizmos.color = Color.cyan;
+                Gizmos.color = Color.red;
 
             if (testPath != null)
                 if (testPath.Contains(n))
                 {
                     Gizmos.color = Color.black;
+                    // Gizmos.DrawIcon(n.GridPosition, n.name, true);
                 }
             Gizmos.DrawCube(n.WorldPosition + Vector3.up, Vector3.one * 1f);
         }
     }
 
-
+    //Get closest distance in 4 "mirrors" check which side is closer to move to
     int GetDistance(Node nodeA, Node nodeB)
     {
-        int distX = Mathf.Abs((int)nodeA.GridPosition.x - (int)nodeB.GridPosition.x);
-        int distY = Mathf.Abs((int)nodeA.GridPosition.y - (int)nodeB.GridPosition.y);
+
+        int closestX = 99;
+        int closestY = 99;
+
+        for (int i = -1; i < 1; i++)
+        {
+            for (int j = -1; j < 1; j++)
+            {
+                if (Mathf.Abs((int)nodeA.GridPosition.x - (nodeB.GridPosition.x + (int)i * grid.worldSize.x)) < closestX)
+                    closestX = Mathf.Abs((int)nodeB.GridPosition.x + i * (int)grid.worldSize.x);
+                if (Mathf.Abs((int)nodeA.GridPosition.y - (nodeB.GridPosition.y + (int)j * grid.worldSize.y)) < closestY)
+                    closestX = Mathf.Abs((int)nodeB.GridPosition.y + i * (int)grid.worldSize.y);
+            }
+        }
+
+
+
+
+        int distX = Mathf.Abs((int)nodeA.GridPosition.x - (int)closestX);
+        int distY = Mathf.Abs((int)nodeA.GridPosition.y - (int)closestY);
+
+
+
+
+
 
         if (distX > distY)
             return 14 * distY + 10 * (distX - distY);
