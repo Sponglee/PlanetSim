@@ -82,7 +82,7 @@ MonoBehaviour:
   WalkAble: 1
   Enemy: 0
   offset: {x: 0, y: 5}
-  length: 1.5
+  length: 1.65
   difference: {x: 0, y: 0, z: 0}
   cam: {fileID: 0}
   contentHolder: {fileID: 3538081113136793870}
@@ -116,6 +116,7 @@ MonoBehaviour:
   gCost: 0
   hCost: 0
   TileState: 0
+  gridPosition: {x: 0, y: 0}
 --- !u!54 &3911076395842591805
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -257,7 +258,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d2ab687d85be24968b9b29b62a2c0fc6, type: 2}
+      objectReference: {fileID: 2100000, guid: 6e333d2c8bc9147ecb8c0f71621d26f0, type: 2}
     - target: {fileID: 919132149155446097, guid: 98a299b6d781e4f198d9b511e4e50f95,
         type: 3}
       propertyPath: m_Name
