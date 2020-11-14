@@ -17,16 +17,10 @@ public class GridController : Singleton<GridController>
     public Node[,] tiles;
 
 
-
-
-
-
     void Awake()
     {
         InitializeWorld();
     }
-
-
     public void InitializeWorld()
     {
         tiles = new Node[(int)worldSize.x, (int)worldSize.y];
@@ -46,12 +40,36 @@ public class GridController : Singleton<GridController>
                 Vector2 tmpGrid = new Vector2(x, y);
                 tmpTile.GetComponent<TileScript>().tileNode.GridPosition = tmpGrid;
                 tmpTile.GetComponent<TileScript>().tileNode.TileState = tileTypes[tmpTileType].state;
-
+                tmpTile.GetComponent<Node>().TileState = GetTileStateFromIndex(tmpTileType);
                 tiles[x, y] = tmpTile.GetComponent<Node>();
             }
         }
     }
 
+    private TileScript.TileStates GetTileStateFromIndex(int index)
+    {
+        TileScript.TileStates tmpState;
+        switch (index)
+        {
+            case 0:
+                tmpState = TileScript.TileStates.Unwalkable;
+                break;
+            case 1:
+                tmpState = TileScript.TileStates.Free;
+                break;
+            case 2:
+                tmpState = TileScript.TileStates.Trees;
+                break;
+            case 3:
+                tmpState = TileScript.TileStates.Unwalkable;
+                break;
+            default:
+                tmpState = TileScript.TileStates.Free;
+                break;
+        }
+
+        return tmpState;
+    }
 
     public List<Node> GetNeighbours(Node node)
     {

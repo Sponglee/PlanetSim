@@ -10,25 +10,6 @@ public partial class TileScript : MonoBehaviour
         Occupied,
         Unwalkable
     }
-
-    public bool WalkAble = true;
-    public bool Enemy = false;
-
-
-
-    public Vector2 offset;
-
-    private Vector2 jumpSize;
-    private Vector2 jumpStep;
-
-
-
-    public float length = 1.6f;
-    [HideInInspector()] public Vector3 difference;
-    [HideInInspector()] public GameObject cam;
-    public Transform contentHolder;
-    public Transform unitHolder;
-
     public bool IsVisible
     {
         get => isVisible;
@@ -42,21 +23,20 @@ public partial class TileScript : MonoBehaviour
         }
     }
 
+    [HideInInspector()] public Vector3 difference;
+    [HideInInspector()] public GameObject cam;
+    public bool WalkAble = true;
+    public bool Enemy = false;
+    public Vector2 offset;
+    public float length = 1.6f;
+    public Transform contentHolder;
+    public Transform unitHolder;
     public Node tileNode;
-
     private float startPosX, startPosZ;
+    private Vector2 jumpSize;
+    private Vector2 jumpStep;
     private bool isVisible = true;
 
-    //Setting up a grid values for Tile
-    // public void Setup(Point gridPos, Vector3 worldPos, Transform parent)
-    // {
-    //     // IsEmpty = true;
-    //     // this.GridPosition = gridPos;
-    //     transform.position = worldPos;
-    //     transform.SetParent(parent);
-    //     // WorldController.Instance.Tiles.Add(gridPos, this);
-
-    // }
     private void Awake()
     {
         tileNode = GetComponent<Node>();
@@ -87,16 +67,6 @@ public partial class TileScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam.GetComponent<Camera>());
-        // if (!IsVisible && GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
-        // {
-        //     IsVisible = true;
-        // }
-        // else if (IsVisible && !GeometryUtility.TestPlanesAABB(planes, GetComponentInChildren<MeshCollider>().bounds))
-        // {
-        //     IsVisible = false;
-        // }
-
         difference = (cam.transform.position - transform.position + new Vector3(offset.x, 0f, offset.y));
 
         if (Mathf.Abs(difference.x) > jumpStep.x)
@@ -107,14 +77,6 @@ public partial class TileScript : MonoBehaviour
         {
             UpdateTilePosition(cam.transform.position.z, 1);
         }
-
-        // if (cam.transform.position.x > 1000f || cam.transform.position.z > 1000f)
-        // {
-        //     cam.transform.position = new Vector3(cam.transform.position.x % 1000f, cam.transform.position.y, cam.transform.position.z % 1000f);
-        //     UpdateTilePosition(cam.transform.position.x, 0);
-        //     UpdateTilePosition(cam.transform.position.z, 1);
-        // }
-
     }
 
     private void UpdateTile()
@@ -129,9 +91,6 @@ public partial class TileScript : MonoBehaviour
         //Pick a start position projection coordinate
         float calculatedStartPos = (axis == 0 ? startPosX : startPosZ);
         float camPos = camProjectionCoord;
-
-
-
         //Update position projection coordinate depending on axis
         if (axis == 0)
         {

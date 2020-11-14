@@ -73,6 +73,7 @@ public class Pathfinding : Singleton<Pathfinding>
 
     public void RetracePath(Node startNode, Node endNode)
     {
+        testPath.Clear();
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
 
@@ -84,10 +85,14 @@ public class Pathfinding : Singleton<Pathfinding>
 
         path.Reverse();
         ///////////////
-        testPath = path;
+
+        foreach (Node item in path)
+        {
+            testPath.Push(item);
+        }
     }
 
-    public List<Node> testPath;
+    public Stack<Node> testPath = new Stack<Node>();
 
 
     private void OnDrawGizmos()
@@ -108,7 +113,7 @@ public class Pathfinding : Singleton<Pathfinding>
                     Gizmos.color = Color.black;
                     // Gizmos.DrawIcon(n.GridPosition, n.name, true);
                 }
-            Gizmos.DrawCube(n.WorldPosition + Vector3.up * 2f, Vector3.one);
+            Gizmos.DrawCube(n.WorldPosition + Vector3.up * 0f, Vector3.one);
         }
     }
 

@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3911076395842591805}
   m_Layer: 0
   m_Name: Tile 1
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,12 +79,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35522382b41f40969ceb887837c5825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difference: {x: 0, y: 0, z: 0}
+  cam: {fileID: 0}
   WalkAble: 1
   Enemy: 0
   offset: {x: 0, y: 5}
   length: 1.65
-  difference: {x: 0, y: 0, z: 0}
-  cam: {fileID: 0}
   contentHolder: {fileID: 3538081113136793870}
   unitHolder: {fileID: 8679722104852673945}
   tileNode: {fileID: 6580885771754434364}
