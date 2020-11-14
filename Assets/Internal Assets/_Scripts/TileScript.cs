@@ -34,7 +34,7 @@ public partial class TileScript : MonoBehaviour
     public Node tileNode;
     private float startPosX, startPosZ;
     private Vector2 jumpSize;
-    private Vector2 jumpStep;
+    private Vector2 jumpTreshold;
     private bool isVisible = true;
 
     private void Awake()
@@ -46,7 +46,9 @@ public partial class TileScript : MonoBehaviour
     void Start()
     {
         jumpSize = GridController.Instance.worldSize;
-        jumpStep = jumpSize / 1.17647f;
+
+        jumpTreshold = jumpSize / 1.17647f;
+        // jumpTreshold = jumpSize;
 
         cam = Camera.main.gameObject;
         startPosX = transform.position.x;
@@ -69,11 +71,11 @@ public partial class TileScript : MonoBehaviour
     {
         difference = (cam.transform.position - transform.position + new Vector3(offset.x, 0f, offset.y));
 
-        if (Mathf.Abs(difference.x) > jumpStep.x)
+        if (Mathf.Abs(difference.x) > jumpTreshold.x)
         {
             UpdateTilePosition(cam.transform.position.x, 0);
         }
-        if (Mathf.Abs(difference.z) > jumpStep.y)
+        if (Mathf.Abs(difference.z) > jumpTreshold.y)
         {
             UpdateTilePosition(cam.transform.position.z, 1);
         }

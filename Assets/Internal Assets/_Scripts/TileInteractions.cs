@@ -11,6 +11,6 @@ public class TileInteractions : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        UnitControllerBase.Instance.MoveToTile(_script);
+        // UnitControllerBase.Instance.MoveToTile(_script);
     }
 }

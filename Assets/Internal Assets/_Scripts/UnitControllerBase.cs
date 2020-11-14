@@ -6,61 +6,75 @@ using UnityEngine;
 
 public class UnitControllerBase : Singleton<UnitControllerBase>
 {
+
+    public enum UnitStates
+    {
+        Idle,
+        Working,
+        Walking,
+    }
+
+    private struct DestData : IComparable<DestData>
+    {
+        public Node node;
+        public float distance;
+
+        public int CompareTo(DestData obj)
+        {
+            return distance.CompareTo(obj.distance);
+        }
+    }
+
+    public UnitStates unitState;
     public Node currentNode;
+    public int lookRadius = 5;
+
+    private Stack<Node> unitPath = new Stack<Node>();
 
     private void Initialize()
     {
         transform.position = GridController.Instance.tiles[0, 0].WorldPosition;
         currentNode = GridController.Instance.tiles[0, 0];
 
-        transform.parent = GridController.Instance.tiles[0, 0].gameObject.GetComponent<TileScript>().unitHolder;
+        // transform.parent = GridController.Instance.tiles[0, 0].gameObject.GetComponent<TileScript>().unitHolder;
     }
 
-    private bool DestinationActive = false;
 
-    private void Start()
+    private IEnumerator Start()
     {
         Initialize();
-        // while (true)
-        // {
-        //     yield return new WaitForSeconds(1f);
-
-        // }
-
-
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
+        while (true)
         {
-            if (!DestinationActive)
-                GetToDestination();
+            yield return new WaitForSeconds(1f);
+            if (unitState == UnitStates.Idle)
+            {
+
+                if (CheckForTargetDestination())
+                {
+                    GetToDestination(targetDestos[0].node);
+                }
+            }
         }
     }
 
-    public void GetToDestination()
+    public void GetToDestination(Node target)
     {
-
-
-        if (DestinationActive && Pathfinding.Instance.testPath.Count == 0)
+        if (unitState == UnitStates.Walking)
         {
             return;
         }
 
+        unitPath = Pathfinding.Instance.FindPath(currentNode, targetDestos[0].node);
 
-        if (Pathfinding.Instance.testPath != null)
+        if (unitPath.Count > 0)
         {
-
-            Stack<Node> tmpDest = new Stack<Node>(Pathfinding.Instance.testPath);
-            StartCoroutine(StartDestMove(tmpDest));
-
+            StartCoroutine(StartDestMove(unitPath));
         }
     }
 
     private IEnumerator StartDestMove(Stack<Node> targetNodes)
     {
-        DestinationActive = true;
+        unitState = UnitStates.Walking;
         while (targetNodes.Count > 0)
         {
             currentNode = targetNodes.Peek();
@@ -88,11 +102,58 @@ public class UnitControllerBase : Singleton<UnitControllerBase>
             transform.position = targetPos;
         }
 
-        DestinationActive = false;
-    }
-    public void MoveToTile(TileScript targetTile)
-    {
-        Pathfinding.Instance.target = targetTile.tileNode;
+        targetDestos[0].node.TileState = TileScript.TileStates.Free;
+        targetDestos[0].node.gameObject.GetComponent<TileScript>().SetUpTileType(GridController.Instance.tileTypes[0]);
+        unitState = UnitStates.Idle; /* FOR NOW, CHANGE TO WORKING */
     }
 
+    private List<DestData> targetDestos = new List<DestData>();
+
+    private bool CheckForTargetDestination()
+    {
+        targetDestos.Clear();
+
+        Vector2Int startCoord = new Vector2Int((int)currentNode.GridPosition.x - lookRadius, (int)currentNode.GridPosition.y - lookRadius);
+        Vector2Int endCoord = new Vector2Int((int)currentNode.GridPosition.x + lookRadius, (int)currentNode.GridPosition.y + lookRadius);
+
+        for (int x = startCoord.x; x < endCoord.x; x++)
+        {
+            for (int y = startCoord.y; y < endCoord.y; y++)
+            {
+                int tmpX = x;
+                int tmpY = y;
+
+                if (x < 0)
+                    tmpX = (int)GridController.Instance.worldSize.x - 1 + x;
+
+                if (y < 0)
+                    tmpY = (int)GridController.Instance.worldSize.y - 1 + y;
+
+                if (x >= (int)GridController.Instance.worldSize.x)
+                    tmpX = x % (int)GridController.Instance.worldSize.x;
+
+                if (y >= (int)GridController.Instance.worldSize.y)
+                    tmpY = y % (int)GridController.Instance.worldSize.y;
+
+
+                // Debug.Log(tmpX + " : " + tmpY);
+                Node tmpTile = GridController.Instance.tiles[tmpX, tmpY];
+                if (tmpTile.TileState == TileScript.TileStates.Trees)
+                {
+                    DestData tmpData = new DestData();
+                    tmpData.node = tmpTile;
+                    tmpData.distance = Vector2.SqrMagnitude(new Vector2(Mathf.Abs(x - currentNode.GridPosition.x), Mathf.Abs(y - currentNode.GridPosition.y)));
+                    targetDestos.Add(tmpData);
+                }
+            }
+        }
+
+        if (targetDestos.Count > 0)
+        {
+            targetDestos.Sort();
+            return true;
+        }
+        else
+            return false;
+    }
 }

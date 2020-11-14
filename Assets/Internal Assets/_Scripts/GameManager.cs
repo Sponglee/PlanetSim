@@ -12,17 +12,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButton(0))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            if (Input.GetMouseButtonUp(0))
             {
-                if (hit.transform.GetComponent<IInteractable>() != null)
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 100.0f))
                 {
-                    hit.transform.GetComponent<IInteractable>().Interact();
+                    if (hit.transform.GetComponent<IInteractable>() != null)
+                    {
+                        hit.transform.GetComponent<IInteractable>().Interact();
+                    }
                 }
             }
         }
+
     }
 }

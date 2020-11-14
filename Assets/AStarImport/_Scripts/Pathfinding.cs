@@ -18,7 +18,7 @@ public class Pathfinding : Singleton<Pathfinding>
     }
 
 
-    public void FindPath(Node startNode, Node targetNode)
+    public Stack<Node> FindPath(Node startNode, Node targetNode)
     {
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -42,8 +42,7 @@ public class Pathfinding : Singleton<Pathfinding>
 
             if (currentNode == targetNode)
             {
-                RetracePath(startNode, targetNode);
-                return;
+                return RetracePath(startNode, targetNode);
             }
 
             foreach (Node neighbour in grid.GetNeighbours(currentNode))
@@ -69,12 +68,14 @@ public class Pathfinding : Singleton<Pathfinding>
                 }
             }
         }
+        return null;
     }
 
-    public void RetracePath(Node startNode, Node endNode)
+    public Stack<Node> RetracePath(Node startNode, Node endNode)
     {
-        testPath.Clear();
+
         List<Node> path = new List<Node>();
+        Stack<Node> testPath = new Stack<Node>();
         Node currentNode = endNode;
 
         while (currentNode != startNode)
@@ -90,9 +91,10 @@ public class Pathfinding : Singleton<Pathfinding>
         {
             testPath.Push(item);
         }
+
+        return testPath;
     }
 
-    public Stack<Node> testPath = new Stack<Node>();
 
 
     private void OnDrawGizmos()
@@ -107,12 +109,12 @@ public class Pathfinding : Singleton<Pathfinding>
             if (n.GridPosition == Vector2.zero)
                 Gizmos.color = Color.red;
 
-            if (testPath != null)
-                if (testPath.Contains(n))
-                {
-                    Gizmos.color = Color.black;
-                    // Gizmos.DrawIcon(n.GridPosition, n.name, true);
-                }
+            // if (testPath != null)
+            //     if (testPath.Contains(n))
+            //     {
+            //         Gizmos.color = Color.black;
+            //         // Gizmos.DrawIcon(n.GridPosition, n.name, true);
+            //     }
             Gizmos.DrawCube(n.WorldPosition + Vector3.up * 0f, Vector3.one);
         }
     }
